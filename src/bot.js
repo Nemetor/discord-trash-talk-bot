@@ -22,7 +22,7 @@ let init = function () {
   });
 
   let token = auth.debug ? auth.discordToken : process.env.DISCORD_TOKEN;
-
+  console.log(token);
   client.login(token);
 }
 
