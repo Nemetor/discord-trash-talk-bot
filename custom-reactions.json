@@ -4,12 +4,14 @@
         "C'EST PARCE QUE LES GENS EN ONT PLEIN DE CUL DES ARABES !",
         "AAAaaAAaaaaAAAaaAAARrRrrGGHhhhh !",
         "Mais fermeuh lààààà !",
-        "C'est ce que ta mère me disait hier soir. Quelle cochonne...",
-        "En vrai, Jul c'est le sang. Pas comme cette tapette de Nekfeu !"
+        "C'est ce que ta mère me disait hier soir. Quelle cochonne..."
     ],
     "gifSearch": [
         "weird",
         "crazy",
         "stupid"
+    ],
+    "actions": [
+        { "action": "WATCHING", "activity": "ta mère sous la douche" }
     ]
 }

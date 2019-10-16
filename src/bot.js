@@ -6,15 +6,22 @@ const request = require('request');
 const utils = require('./utils.js');
 const spongebob = 'media/Mocking-Spongebob.jpg';
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
+let init = function () {
+  client.on('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`);
+    let i = utils.randomInt(reactions.actions.length);
+    let choice = reactions.actions[i];
+    client.user.setActivity(choice.activity, { type: choice.action });
+  });
+  
+  client.on('message', msg => {
+    if (msg.author.username + '#' + msg.author.discriminator != client.user.tag) {
+      react(msg);
+    }
+  });
 
-client.on('message', msg => {
-  if (msg.author.username + '#' + msg.author.discriminator != client.user.tag) {
-    react(msg);
-  }
-});
+  client.login(auth.discordToken);
+}
 
 let react = function (msg) {
   let rdm = utils.randomInt(3);
@@ -62,4 +69,4 @@ let sendRandomGIF = function (msg) {
   });
 }
 
-client.login(auth.discordToken);
+init();
