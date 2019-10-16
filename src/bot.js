@@ -89,6 +89,8 @@ let sendRandomGIF = function (msg) {
 
 let speak = function (channel) {
   channel.join().then((cnx) => {
+    //not working on production
+    //play from remote
     let dispatcher = cnx.playFile(reactions.soundOnConnect);
     dispatcher.on('end', (end) => {
       channel.leave();
