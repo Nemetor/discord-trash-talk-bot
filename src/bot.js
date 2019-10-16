@@ -21,7 +21,9 @@ let init = function () {
     }
   });
 
-  client.login(auth.discordToken);
+  let token = auth.debug ? auth.discordToken : process.env.DISCORD_TOKEN;
+
+  client.login(token);
 }
 
 let react = function (msg) {
@@ -60,8 +62,9 @@ let repeatMockingly = function (msg) {
 let sendRandomGIF = function (msg) {
   let searches = reactions.gifSearch;
   let i = utils.randomInt(searches.length);
-  let query = searches[i];
-  let url = 'http://api.giphy.com/v1/gifs/search?api_key=' + auth.giphyToken + '&q=' + query;
+  let query = searches[i];  
+  let token = auth.debug ? auth.giphyToken : process.env.GIPHY_TOKEN;
+  let url = 'http://api.giphy.com/v1/gifs/search?api_key=' + token + '&q=' + query;
   request(url, { json : true }, (err, res, body) => {
     if (res.statusCode === 200) {
       let i = utils.randomInt(body.data.length);
