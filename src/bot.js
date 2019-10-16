@@ -57,7 +57,6 @@ let sendRandomGIF = function (msg) {
   request(url, { json : true }, (err, res, body) => {
     if (res.statusCode === 200) {
       let i = utils.randomInt(body.data.length);
-      console.log(body.data[i].embed_url);
       msg.channel.send(body.data[i].url);
     }
   });
