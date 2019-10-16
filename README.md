@@ -1,1 +1,3 @@
-# discord-trash-talk-bot
+# Discord Bot : TrashTalk
+
+He loves to talk about your mom
