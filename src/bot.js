@@ -6,7 +6,6 @@ const auth = require('../auth.json');
 const reactions = require('../custom-reactions.json');
 
 const spongebob = 'media/Mocking-Spongebob.jpg';
-const jeanne = 'media/jeanne.mp3';
 
 const discordToken = auth.debug ? auth.discordToken : process.env.DISCORD_TOKEN;
 const giphyToken = auth.debug ? auth.giphyToken : process.env.GIPHY_TOKEN;
@@ -90,7 +89,7 @@ let sendRandomGIF = function (msg) {
 
 let speak = function (channel) {
   channel.join().then((cnx) => {
-    let dispatcher = cnx.playFile(jeanne);
+    let dispatcher = cnx.playFile(reactions.soundOnConnect);
     dispatcher.on('end', (end) => {
       channel.leave();
     });        
