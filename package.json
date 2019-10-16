@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/bot.js",
-    "debug": "nodemon src/bot.js"
+    "debug": "nodemon src/bot.js",
+    "deploy": "npm install && npm run start"
   },
   "keywords": [],
   "author": "",
