@@ -16,6 +16,7 @@ let init = function () {
   
   client.on('message', msg => {
     if (msg.author.username + '#' + msg.author.discriminator != client.user.tag) {
+      console.log('Reacting to message from ' + msg.author.username);
       react(msg);
     }
   });
