@@ -2,11 +2,12 @@
   "name": "discord-trash-talk-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/bot.js",
-    "debug": "nodemon src/bot.js"
+    "debug": "nodemon src/bot.js",
+    "deploy": "npm install && npm run start"
   },
   "keywords": [],
   "author": "",
