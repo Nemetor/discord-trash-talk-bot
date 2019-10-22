@@ -90,15 +90,18 @@ let sendRandomGIF = function (msg) {
 let greet = function (channel) {
   channel.join().then((cnx) => {
     try {
+      console.log('greeting...');
       let dispatcher = cnx.playStream(
         ytdl(reactions.soundOnConnect, { filter: 'audioonly' }), 
         { volume : 0.2 });
       dispatcher.on('end', () => {
+        console.log('end...');
         channel.leave();
         dispatcher.destroy();
       });
     }
     catch (e) {
+      console.log('error');
       console.error(e);
       channel.leave();
     }

@@ -16,6 +16,6 @@
         "action": "WATCHING",
         "activity": "ta mère sous la douche"
     },
-    "reactionChance": 25,
+    "reactionPercent": 25,
     "soundOnConnect": "https://www.youtube.com/watch?v=v1mxMtr8Mws"
 }
