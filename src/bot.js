@@ -91,9 +91,8 @@ let greet = function (channel) {
   channel.join().then((cnx) => {
     try {
       console.log('greeting...');
-      let dispatcher = cnx.playStream(
-        ytdl(reactions.soundOnConnect, { filter: 'audioonly' }), 
-        { volume : 0.2 });
+      let stream = ytdl(reactions.soundOnConnect, { filter : 'audioonly' });
+      let dispatcher = cnx.playStream(stream, { seek : 0, volume : 0.2 });
       // dispatcher.on('end', () => {
       //   console.log('end...');
       //   channel.leave();
@@ -105,7 +104,7 @@ let greet = function (channel) {
       console.error(e);
       channel.leave();
     }
-  });
+  }).catch(console.error);
 }
 
 init();
