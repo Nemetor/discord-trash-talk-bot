@@ -20,7 +20,7 @@ let init = function () {
   client.on('message', msg => {
     if (msg.author.username + '#' + msg.author.discriminator != client.user.tag) {
       let reacting = utils.randomInt(reactionChance);
-      if (reacting > 0) {
+      if (reacting == 0) {
         console.log('Reacting to message from ' + msg.author.username);
         react(msg);
       }
@@ -94,11 +94,11 @@ let greet = function (channel) {
       let dispatcher = cnx.playStream(
         ytdl(reactions.soundOnConnect, { filter: 'audioonly' }), 
         { volume : 0.2 });
-      dispatcher.on('end', () => {
-        console.log('end...');
-        channel.leave();
-        dispatcher.destroy();
-      });
+      // dispatcher.on('end', () => {
+      //   console.log('end...');
+      //   channel.leave();
+      //   dispatcher.destroy();
+      // });
     }
     catch (e) {
       console.log('error');
