@@ -16,6 +16,6 @@
         "action": "WATCHING",
         "activity": "ta mère sous la douche"
     },
-    "reactionChance": 2,
-    "soundOnConnect": "media/jeanne.mp3"
+    "reactionChance": 25,
+    "soundOnConnect": "https://www.youtube.com/watch?v=v1mxMtr8Mws"
 }

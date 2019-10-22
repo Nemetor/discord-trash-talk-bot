@@ -17,6 +17,7 @@
     "ffmpeg": "0.0.4",
     "ffmpeg-binaries": "^4.0.0",
     "node-opus": "^0.3.3",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "ytdl": "^0.13.1"
   }
 }
