@@ -31,8 +31,8 @@ let init = function () {
   });
   client.on("voiceStateUpdate", function (oldMember, newMember) {
     if (newMember.voiceChannelID && oldMember.voiceChannelID != newMember.voiceChannelID && newMember.user.tag !== client.user.tag && !client.guilds.get(newMember.guild.id).voiceConnection) {
-      console.log(`Detecting member join`);
-      greet(newMember.voiceChannel);
+      //console.log(`Detecting member join`);
+      //greet(newMember.voiceChannel);
     }
   });
   client.login(discordToken).catch(console.error);
@@ -87,24 +87,29 @@ let sendRandomGIF = function (msg) {
   });
 }
 
+//won't work on heroku, a virtual server is needed
 let greet = function (channel) {
   channel.join().then((cnx) => {
-    try {
       console.log('greeting...');
       let stream = ytdl(reactions.soundOnConnect, { filter : 'audioonly' });
       let dispatcher = cnx.playStream(stream, { seek : 0, volume : 0.2 });
-      // dispatcher.on('end', () => {
-      //   console.log('end...');
-      //   channel.leave();
-      //   dispatcher.destroy();
-      // });
-    }
-    catch (e) {
-      console.log('error');
+      dispatcher.on('end', () => {
+        console.log('end greeting...');
+        channel.leave();
+        dispatcher.destroy();
+      });
+      dispatcher.on('error', (e) => {
+        console.log('dispatcher error...')
+        console.error(e);
+        channel.leave();
+        dispatcher.destroy();
+      });
+  }).catch((e) => {
+      console.error("greeting error...");
       console.error(e);
       channel.leave();
-    }
-  }).catch(console.error);
+        dispatcher.destroy();
+  });
 }
 
 init();
