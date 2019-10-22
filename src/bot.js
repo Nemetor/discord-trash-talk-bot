@@ -1,11 +1,13 @@
 const Discord = require('discord.js');
 const request = require('request');
+const ytdl = require('ytdl-core');
 const client = new Discord.Client();
 const utils = require('./utils.js');
 const auth = require('../auth.json');
 const reactions = require('../custom-reactions.json');
 
 const spongebob = 'media/Mocking-Spongebob.jpg';
+const reactionChance = 100 / reactions.reactionPercent;
 
 const discordToken = auth.debug ? auth.discordToken : process.env.DISCORD_TOKEN;
 const giphyToken = auth.debug ? auth.giphyToken : process.env.GIPHY_TOKEN;
@@ -17,7 +19,7 @@ let init = function () {
   });
   client.on('message', msg => {
     if (msg.author.username + '#' + msg.author.discriminator != client.user.tag) {
-      let reacting = utils.randomInt(reactions.reactionChance);
+      let reacting = utils.randomInt(reactionChance);
       if (reacting > 0) {
         console.log('Reacting to message from ' + msg.author.username);
         react(msg);
@@ -28,11 +30,9 @@ let init = function () {
     }
   });
   client.on("voiceStateUpdate", function (oldMember, newMember) {
-    let channel = newMember.voiceChannel;
-    let guild = newMember.guild.id;
-    if (channel && newMember.user.tag !== client.user.tag && !client.guilds.get(guild).voiceConnection) {
+    if (newMember.voiceChannelID && oldMember.voiceChannelID != newMember.voiceChannelID && newMember.user.tag !== client.user.tag && !client.guilds.get(newMember.guild.id).voiceConnection) {
       console.log(`Detecting member join`);
-      speak(channel);
+      greet(newMember.voiceChannel);
     }
   });
   client.login(discordToken).catch(console.error);
@@ -87,15 +87,22 @@ let sendRandomGIF = function (msg) {
   });
 }
 
-let speak = function (channel) {
+let greet = function (channel) {
   channel.join().then((cnx) => {
-    //not working on production
-    //play from remote
-    let dispatcher = cnx.playFile(reactions.soundOnConnect);
-    dispatcher.on('end', (end) => {
+    try {
+      let dispatcher = cnx.playStream(
+        ytdl(reactions.soundOnConnect, { filter: 'audioonly' }), 
+        { volume : 0.2 });
+      dispatcher.on('end', () => {
+        channel.leave();
+        dispatcher.destroy();
+      });
+    }
+    catch (e) {
+      console.error(e);
       channel.leave();
-    });        
-  }).catch(console.error);
+    }
+  });
 }
 
 init();
